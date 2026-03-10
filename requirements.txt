@@ -1,0 +1,25 @@
+# Aucune dépendance externe requise.
+# Le pipeline repose uniquement sur la bibliothèque standard Python 3.10+.
+#
+# Modules utilisés (tous inclus dans Python) :
+#   re          — parsing regex des textes réglementaires
+#   dataclasses — structuration typée des données (Requirement, ProductSheet, AuditResult)
+#   enum        — type Status (SATISFAIT / NON_SATISFAIT / AMBIGU)
+#   typing      — annotations de types (Optional, list)
+#   sys         — code de retour du processus
+#
+# ── Extensions possibles ───────────────────────────────────────────────────
+#
+# Pour une approche hybride règles + similarité sémantique :
+#   sentence-transformers>=2.7.0   # encodage des phrases en vecteurs
+#   torch>=2.1.0                   # backend sentence-transformers
+#
+# Pour lire des fiches produit au format PDF ou Word :
+#   pdfplumber>=0.10.0             # extraction texte depuis PDF
+#   python-docx>=1.1.0             # extraction texte depuis .docx
+#
+# Pour exporter le rapport en JSON / CSV :
+#   # pas de dépendance externe — json et csv sont dans la stdlib
+#
+# Pour les tests unitaires :
+#   pytest>=8.0.0                  # runner de tests
