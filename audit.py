@@ -395,10 +395,18 @@ def evaluate_req06(req: Requirement, p: ProductSheet) -> AuditResult:
         "espagne":   "espagnol",
         "allemagne": "allemand",
     }
+    unknown_markets = [m for m in p.markets if m.lower() not in COUNTRY_LANG]
     required_langs = {COUNTRY_LANG[m.lower()] for m in p.markets if m.lower() in COUNTRY_LANG}
     available_langs = {l.lower() for l in p.manual_languages}
     missing_langs   = required_langs - available_langs
 
+    if unknown_markets and not missing_langs:
+        # Never conclude SATISFAIT for a market whose language we cannot check.
+        return _result(
+            req, Status.AMBIGU,
+            f"Langue officielle inconnue pour : {', '.join(unknown_markets)}.",
+            missing="Préciser la ou les langues exigées dans ces pays.",
+        )
     if not missing_langs:
         return _result(req, Status.SATISFAIT,
                        f"Notice disponible dans toutes les langues requises : "
